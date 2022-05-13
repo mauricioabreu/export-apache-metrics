@@ -1,0 +1,14 @@
+services:
+  web:
+    image: httpd:2.4
+    ports:
+      - 8080:80
+    volumes:
+      - ./apache:/var/log/apache2
+      - ./apache/vhost.conf:/usr/local/apache2/conf/httpd.conf:ro
+    depends_on:
+      - api
+  api:
+    image: kennethreitz/httpbin
+    ports:
+      - 8081:80
