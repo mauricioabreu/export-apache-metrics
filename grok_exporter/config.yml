@@ -1,0 +1,21 @@
+global:
+  config_version: 3
+input:
+  type: file
+  path: /var/log/apache2/access.log
+  readall: true
+  fail_on_missing_logfile: false
+imports:
+- type: grok_patterns
+  dir: /grok_exporter/logstash-patterns-core/patterns
+metrics:
+- type: counter
+  name: apache_http_response_codes_total
+  help: HTTP requests to Apache
+  match: '%{COMBINEDAPACHELOG}'
+  labels:
+    method: '{{.verb}}'
+    path: '{{.request}}'
+    code: '{{.response}}'
+server:
+  port: 9144

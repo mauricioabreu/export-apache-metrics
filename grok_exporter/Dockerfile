@@ -1,8 +1,6 @@
-FROM ubuntu:20.04
+FROM alpine:3.16
 
-ARG DEBIAN_FRONTEND=noninteractive
-
-RUN apt-get update && apt-get install -y curl libonig-dev gcc make git
+RUN apk update && apk add --no-cache curl build-base make git 
 
 RUN curl -sLO https://github.com/kkos/oniguruma/releases/download/v6.9.5_rev1/onig-6.9.5-rev1.tar.gz && \
     tar xfz onig-6.9.5-rev1.tar.gz && \
@@ -11,8 +9,16 @@ RUN curl -sLO https://github.com/kkos/oniguruma/releases/download/v6.9.5_rev1/on
     make && \
     make install
 
-RUN apt-get install -y golang
+COPY --from=golang:1.18-alpine /usr/local/go/ /usr/local/go/
+ENV PATH="/usr/local/go/bin:${PATH}"
+
 RUN git clone https://github.com/fstab/grok_exporter
 RUN cd grok_exporter && \
     git submodule update --init --recursive && \
-    go install .
+    GOBIN=/usr/local/bin/ go install .
+
+WORKDIR /app
+
+COPY config.yml /app
+
+CMD ["grok_exporter", "-config", "/app/config.yml"]

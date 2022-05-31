@@ -4,7 +4,7 @@ services:
     ports:
       - 8080:80
     volumes:
-      - ./apache:/var/log/apache2
+      - logs:/var/log/apache2
       - ./apache/vhost.conf:/usr/local/apache2/conf/httpd.conf:ro
     depends_on:
       - api
@@ -15,3 +15,8 @@ services:
   grok:
     build:
       context: grok_exporter
+    volumes:
+      - logs:/var/log/apache2
+
+volumes:
+  logs:
