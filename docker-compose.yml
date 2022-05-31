@@ -2,21 +2,23 @@ services:
   web:
     image: httpd:2.4
     ports:
-      - 8080:80
+      - "8080:80"
     volumes:
-      - logs:/var/log/apache2
+      - logs:/usr/local/apache2/logs/
       - ./apache/vhost.conf:/usr/local/apache2/conf/httpd.conf:ro
     depends_on:
       - api
   api:
     image: kennethreitz/httpbin
     ports:
-      - 8081:80
+      - "8081:80"
   grok:
     build:
       context: grok_exporter
     volumes:
-      - logs:/var/log/apache2
+      - logs:/usr/local/apache2/logs/
+    ports:
+      - "9144:9144"
 
 volumes:
   logs:

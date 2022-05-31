@@ -2,7 +2,7 @@ global:
   config_version: 3
 input:
   type: file
-  path: /var/log/apache2/access.log
+  path: /usr/local/apache2/logs/access_log
   readall: true
   fail_on_missing_logfile: false
 imports:
