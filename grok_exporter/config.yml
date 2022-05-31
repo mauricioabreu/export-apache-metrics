@@ -7,12 +7,12 @@ input:
   fail_on_missing_logfile: false
 imports:
 - type: grok_patterns
-  dir: /grok_exporter/logstash-patterns-core/patterns
+  dir: /grok_exporter/logstash-patterns-core/patterns/legacy
 metrics:
 - type: counter
   name: apache_http_response_codes_total
   help: HTTP requests to Apache
-  match: '%{COMBINEDAPACHELOG}'
+  match: '%{HTTPD_COMBINEDLOG}'
   labels:
     method: '{{.verb}}'
     path: '{{.request}}'

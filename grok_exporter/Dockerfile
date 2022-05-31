@@ -15,7 +15,10 @@ ENV PATH="/usr/local/go/bin:${PATH}"
 RUN git clone https://github.com/fstab/grok_exporter
 RUN cd grok_exporter && \
     git submodule update --init --recursive && \
+    git -C /grok_exporter/logstash-patterns-core checkout main && \
     GOBIN=/usr/local/bin/ go install .
+
+COPY patterns/httpd /grok_exporter/logstash-patterns-core/patterns/legacy
 
 WORKDIR /app
 
