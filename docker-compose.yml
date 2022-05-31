@@ -12,3 +12,6 @@ services:
     image: kennethreitz/httpbin
     ports:
       - 8081:80
+  grok:
+    build:
+      context: grok_exporter
