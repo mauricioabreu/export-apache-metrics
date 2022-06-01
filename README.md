@@ -12,9 +12,9 @@ Why not use *ELK*? Well, not everyone has enough knowledge to run this stack. Al
 ## Running
 
 This project has three components:
-* Apache web server
+* Apache web server ([Apache](https://httpd.apache.org/))
 * Web application ([httpbin](https://httpbin.org/))
-* grok exporter
+* grok exporter ([grok_exporter](https://github.com/fstab/grok_exporter))
 
 Apache and grok share the same volume so the container running grok can find and parse the Apache access log file.
 
@@ -26,7 +26,7 @@ docker-compose up
 
 We can make some requests to the web application.
 
-More information on all routes this web application exposes: [httpbin](https://httpbin.org/)
+If you wish to test with differentes routes you can read the httpbin docs.
 
 ```
 curl localhost:8080/get
