@@ -7,6 +7,8 @@ manipulate the data the way you want.
 
 Why not use *ELK*? Well, not everyone has enough knowledge to run this stack. Also, some other companies invest more money in tools like *Prometheus*.
 
+![exporting apache metrics with grok exporter](export_metrics_from_apache.png)
+
 ## Running
 
 This project has three components:
