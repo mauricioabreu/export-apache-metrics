@@ -1,4 +1,4 @@
-FROM alpine:3.16
+FROM alpine:3.16 as builder
 
 RUN apk update && apk add --no-cache curl build-base make git 
 
@@ -17,6 +17,13 @@ RUN cd grok_exporter && \
     git submodule update --init --recursive && \
     git -C /grok_exporter/logstash-patterns-core checkout main && \
     GOBIN=/usr/local/bin/ go install .
+
+FROM alpine:3.16
+
+COPY --from=builder /usr/local/include/onig* /usr/local/include/
+COPY --from=builder /usr/local/lib/libonig* /usr/local/lib/
+COPY --from=builder /usr/local/bin/grok_exporter /usr/local/bin/
+COPY --from=builder /grok_exporter /grok_exporter
 
 COPY patterns/httpd /grok_exporter/logstash-patterns-core/patterns/legacy
 
