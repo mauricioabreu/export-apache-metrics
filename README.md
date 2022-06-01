@@ -41,7 +41,7 @@ curl localhost:8080/delay/1
 curl localhost:8080/delay/2
 ```
 
-Viewing the Prometheus:
+Viewing the Prometheus metrics:
 
 ```
 curl localhost:9144/metrics
