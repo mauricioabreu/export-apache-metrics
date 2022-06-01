@@ -11,11 +11,18 @@ imports:
 metrics:
 - type: counter
   name: apache_http_response_codes_total
-  help: HTTP requests to Apache
+  help: HTTP response codes total
   match: '%{HTTPD_COMBINEDLOG}'
   labels:
     method: '{{.verb}}'
     path: '{{.request}}'
+    code: '{{.response}}'
+- type: histogram
+  name: apache_http_response_time
+  help: HTTP response time
+  match: '%{HTTPD_COMBINEDLOG}'
+  value: '{{divide .request_time 1000000}}'
+  labels:
     code: '{{.response}}'
 server:
   port: 9144
