@@ -3,7 +3,6 @@ global:
 input:
   type: file
   path: /usr/local/apache2/logs/access_log
-  readall: true
   fail_on_missing_logfile: false
 imports:
 - type: grok_patterns
