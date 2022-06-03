@@ -26,9 +26,3 @@ COPY --from=builder /usr/local/bin/grok_exporter /usr/local/bin/
 COPY --from=builder /grok_exporter /grok_exporter
 
 COPY patterns/httpd /grok_exporter/logstash-patterns-core/patterns/legacy
-
-WORKDIR /app
-
-COPY config.yml /app
-
-CMD ["grok_exporter", "-config", "/app/config.yml"]

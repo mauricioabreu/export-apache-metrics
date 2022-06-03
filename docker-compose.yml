@@ -17,6 +17,8 @@ services:
       context: grok_exporter
     volumes:
       - logs:/usr/local/apache2/logs/
+      - ./grok_exporter/config.yml:/grok_exporter/config.yml
+    command: ["grok_exporter", "-config", "/grok_exporter/config.yml"]
     ports:
       - "9144:9144"
 
