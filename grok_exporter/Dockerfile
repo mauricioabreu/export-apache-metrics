@@ -24,5 +24,3 @@ COPY --from=builder /usr/local/include/onig* /usr/local/include/
 COPY --from=builder /usr/local/lib/libonig* /usr/local/lib/
 COPY --from=builder /usr/local/bin/grok_exporter /usr/local/bin/
 COPY --from=builder /grok_exporter /grok_exporter
-
-COPY patterns/httpd /grok_exporter/logstash-patterns-core/patterns/legacy
